@@ -6,8 +6,12 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{multicol}
-
- 
+\usepackage{float}
+\usepackage{lineno}
+\linenumbers
+\usepackage{setspace}
+%\onehalfspacing
+\setstretch{1.3}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 
 \vspace{20pt}
@@ -50,41 +54,50 @@ This project takes part in developing and testing simplified examples of open da
 
 \newpage
 \section{Introduction}
-\tab This thesis arises from the ongoing work with experimental data from proton-proton collisions analyzed from the CMS (Compact Muon Solenoid) \cite{cms} experiment at the Large Hadron Collider (LHC) \cite{lhc}. Here, experimental data is analyzed to study the fundamental structure of particles and to search for evidence of new particle physics. This particular project is based in High Energy Physics analysis for public use in education and scientific research, and involves using frameworks produced for analysis preservation and reproducibility. 
-
+\tab This thesis arises from the ongoing work with experimental data from proton-proton collisions analyzed from the CMS (Compact Muon Solenoid) \cite{cms} experiment at the Large Hadron Collider (LHC) \cite{lhc}. Here, experimental data is analyzed to study the fundamental structure of particles and to search for evidence of new particle physics. This particular project is based in High Energy Physics analysis for public use in scientific research, and involves using frameworks produced for analysis preservation and reproducibility. \vspace{3pt}
+\\ 
 \tab This paper is organized as follows: in Section II we introduce proton-proton collisions, and we briefly describe the CMS detector in section III. In Section IV, we outline and define our preservation and reproducibility platforms. We then review analyses tested towards open experimental data in Section V and present event analysis results in Section VI. Finally, our conclusions are summarized in Section VII.
 
 \subsection{Proton-proton (pp) collisions at LHC}
 \tab The LHC is the largest particle accelerator in the world, stationed at CERN \cite{cern}, the European Organization for Nuclear Research, on the French-Swiss border near Geneva. It is located in an underground tunnel 27 km in circumference. The LHC accelerates high-energy particle beams near to the speed of light, before its components collide together at a primary vertex. Each proton-proton collision between constituents is called an event. The particles produced in events are reconstructed in detectors scattered across the LHC, and used to infer the quantum-mechanical process that occurred in the collision. First, the LHC collided protons at a center of mass energy of 7 TeV, upgraded in 2011 to 8 TeV, and it is currently running at 13 TeV.
 
 \subsection{The CMS experiment}
-\tab The CMS experiment is a detector placed at one of the pp collision points in the LHC ring. Collision products travel out from the collision point into the detector. CMS can directly detect muons, electrons, photons and hadronic jets. These jets are clusters of charged particles that result from the formation of hadrons from quarks and gluons produced in collisions. The CMS detector is shown in Figure 1. Towards the center of the detector are trackers, which measure particle positions so that their momenta can be calculated. Magnets curve the tracks of charged particles to enable momentum and charge measurements, ideally to identify the particles resulting from the collisions. Outside the trackers is an electromagnetic calorimeter (ECAL), which measure energy deposits from electrons and photons. Further out is the hadronic calorimeters (HCAL), to measure jets of hadrons. At the outside of the detector are the solenoid and the muon chambers. 
+\tab The CMS experiment is a detector placed at one of the pp collision points in the LHC ring. Collision products travel out from the collision point into the detector. CMS can directly detect muons, electrons, photons and hadronic jets. These jets are clusters of charged particles that result from the formation of hadrons from quarks and gluons produced in collisions. The CMS detector is shown in Figure 1. Towards the center of the detector are the trackers, which measure particle positions so that their momenta can be calculated.
+The CMS detector \cite{cmsinfo} consists of a superconducting solenoid providing a uniform magnetic field of 3.8 T in the core, equipped with silicon pixel and strip tracking systems ($|\eta| <$ 2.5), these magnets curve the tracks of charged particles to enable momentum and charge measurements, ideally to identify the particles resulting from the collisions. Outside the trackers is a lead tungstate crystal electromagnetic calorimeter (ECAL), which measure energy deposits from electrons and photons. Further out is the brass- scintillator hadronic calorimeter (HCAL) covering $|\eta| <$ 3.0 to measure jets of hadrons. The steel return yoke outside the solenoid is instrumented with gas ionization detectors used to trigger and identify muons up to $|\eta| <$ 2.4. 
 \begin{figure}
     \centering
     \includegraphics[scale=0.1]{cms}
     \caption{A schematic diagram of a cut-away section of the ATLAS detector. Detector dimensions are shown and people can be seen on site for a sense of scale.}
     \label{fig:cms}
-\end{figure}
+\end{figure} 
+\vspace{3pt} \\
+\tab The reconstruction and the identification of individual particles in the collision event relies on the the Particle Flow algorithm \cite{flow,flow2} that uses the information from all CMS sub-detectors to provide a list of mutually exclusive categories: charged hadrons, neutral hadrons, photons, muons, and electrons.
 
 \section{Analysis preservation and reproducibility platforms}
 \tab The CERN Open Data portal (CODP) \cite{codp} is the gateway to an increasing range of data produced at the LHC experiments.
 It distributes the preserved product from various research studies, including accompanying software and documentation which is needed to understand and analyze the data being shared.
-The CMS experiment releases and distributes through CODP reconstructed data, simulations and software to allow a full scientific
-analysis, and provides some simplified data formats for education use. \vspace{5pt}
-\\ \tab CMS also provides some analysis examples on the portal. These examples are taken here as use cases for analysis preservation. The analysis record on CODP consists of data (e.g. datasets, code, results) and metadata (e.g. analysis name, contact persons,
+The CMS experiment releases and distributes through CODP complete data and software to allow a full scientific
+analysis, and provides some simplified data formats for education use. Through the portal, CMS provides primary datasets, full reconstructed collision data with no other selections, simulation data, and analysis tools such as downloadable Virtual Machine (VM) images with the CMS software environment and ready-to-use online applications, like event display or simple histogramming software.
+\vspace{3pt} \\ \tab CMS also provides some analysis examples on the portal. These examples are taken here as use cases for analysis preservation. The analysis record on CODP consists of data (e.g. datasets, code, results) and metadata (e.g. analysis name, contact persons,
 publication). This information can then be structured to represent the analysis workflow steps on the CERN Analysis Preservation platform (CAP) \cite{cap}. The CAP service aims to enable physicists to preserve information as it is produced by making it easier to describe, preserve, find, exchange and export information in a fast paced scientific environment. CAP does not require any change in the physicists’ individual arrangements or the terminologies used in the different LHC collaborations. Moreover, this framework is developed to address the need for the long-term preservation of the data analysis process, in order to enable future reproducibility of research
-results. \newline
-\\ \tab In CAP, information is preserved with the aim of reusing it, for example in ReANA\cite{reana}, a reusable and reproducible research data analysis platform. In ReANA, a preserved analysis can be rerun starting from structured input data, analysis code, containerized environments and computational workflows so that the analysis can be established and run on remote computer clouds.
+results.
+\vspace{3pt} \\ \tab In CAP, information is preserved with the aim of reusing it, for example in ReANA\cite{reana}, a reusable and reproducible research data analysis platform. In ReANA, a preserved analysis can be rerun starting from structured input data, analysis code, containerized environments and computational workflows so that the analysis can be established and run on remote computer clouds. ReANA was developed to target the use case of particle physics analyses, but is applicable to any scientific discipline. The system paves the way towards reusing and reinterpreting preserved data analyses even several years after the original publication.
 
 \section{Physics Analyses on CMS Open Data}
 \label{sec:theory}
 
 \subsection{Higgs-to-four-lepton analysis example}
-\tab The example studied is a simplified reimplementation of the Higgs discovery using CMS open data inputs, both raw data and Monte-Carlo simulations, from 2011-2012 \cite{higgs}. The data used for the example is actual, meaningful data from the CMS experiment that confirmed the existence of this elusive particle, which then resulted in a Nobel prize. The example contains multiple levels, from very simple to a complete analysis, available with proper CMS software (CMSSW) environment. In order to structure the analysis for ReANA, it must be described under four main categories: inputs, environment, workflow, and code. Taking into consideration the ``Level 3" of the example, an intermediate stage where part of the analysis is runned and the rest is taken from preprocessed data files, we can describe the fabricated output for the discovery of Standard Model Higgs. The method used to create the analysis first entails some theoretical background, then proceeds to make measurements and testing those measurements to compare with established assumptions.\vspace{5pt}
+\tab The example studied is a simplified reimplementation of the Higgs discovery using CMS open data inputs, both raw data and Monte-Carlo simulations, from 2011-2012 \cite{higgs}. The data used for the example is actual, meaningful data from the CMS experiment that confirmed the existence of this elusive particle, which then resulted in a Nobel prize. The example contains multiple levels, from very simple to a complete analysis. In order to structure the analysis for ReANA, it must be described under four main categories: inputs, environment, workflow, and code. Then, taking into consideration the ``Level 3" of the example, an intermediate stage where part of the analysis is runned and the rest is taken from preprocessed data files, we can describe the fabricated output for the discovery of Standard Model Higgs. The method used to create the analysis firstly derives from some theoretical background, then proceeds to make measurements and testing those measurements to compare with established assumptions.
 \\ 
-\tab According to the Standard Model, one of the ways the Higgs boson can decay is by first creating two Z bosons that then decay further into four leptons (i.e. electrons, muons, etc.). It is not the only process with such a final state, therefore, the analysis sifts through electronic noise, a fundamental quantity for a detector. The theory will not explain in detail the mass of Higgs but it can be obtained from meticulous assumptions; for example, four lepton decay is very dominant in some mass regions and as so it guides this analysis.
-
-\tab The example is worked on the LXPLUS service\cite{lxplus}, lxplus.cern.ch, an interactive logon service to Linux for all CERN users. The cluster LXPLUS consists of public machines provided by the IT Department for interactive work. The example also works with the Open Data virtual machine image  described in the CODP for 2011 and 2012 CMS open data\cite{codpvm}.
+\tab According to the Standard Model (SM), one of the ways the Higgs boson can decay is by first creating two Z bosons that then decay further into four leptons (i.e. electrons, muons, etc.), as shown in Figure 2. The Higgs boson is a scalar particle predicted by the Standard Model of electroweak interactions \cite{higgsinfo, higgsinfo2,higgsinfo3}, responsible for the mechanism of spontaneous symmetry breaking that allow fermions and gauge bosons to acquire mass. The theory does not predict the mass of Higgs boson but it can be obtained experimentally from meticulous assumptions; for example, four lepton decay is very dominant in some mass regions and as so it guides this analysis.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{HZZ}
+    \caption{Feymann diagram of a Higgs production process and ZZ decay.}
+    \label{fig:HZZ}
+\end{figure}
+\newline %check spacing!!!
+\hspace{5pt} The example is worked on the LXPLUS service\cite{lxplus}, lxplus.cern.ch, an interactive logon service to Linux for all CERN users. The cluster LXPLUS consists of public machines provided by the IT Department for interactive work. The example also works with the Open Data virtual machine image  described in the CODP for 2011 and 2012 CMS open data\cite{codpvm}.
 Setting up the computing environment implies building a specific software area, in this case, CMSSW\_5\_3\_32. This assures that there is a working ROOT setup and all CMS code framework is at our disposal. Following step is to add analysis code for both the data example and the Higgs simulation example. Finally, we need to capture the analysis workflows, containing the commands we have to run, to obtain the final plot. The ReANA platform captures the analysis workflows and runs the commands remotely to obtain the outputs of any example.\vspace{5pt}
 \\
 \tab After structuring the analysis and stating any initial conditions, a physicist only needs to create the computational workflows ReANA follows, these include workflows describing: inputs, command steps, and overall schematics. For the Higgs to 4 lepton example, the inputs were listed as so:
@@ -170,26 +183,40 @@ The preservation of these physics analysis examples ensures that the complete in
 \begin{thebibliography}{9}
 \begin{small}
 \bibitem{cms}
+The CMS Collaboration. The CMS experiment at the CERN LHC. JINST, 3, 2008.
 \bibitem{lhc}
 \bibitem{cern}
+\bibitem{cmsinfo}
+\bibitem{flow}
+CMS Collaboration 2009 Particle–Flow Event Reconstruction in CMS and Performance for Jets, Taus, and
+MET CMS-PAS-PFT-09-001
+\bibitem{flow2}
+CMS Collaboration 2010 Commissioning of the Particle-Flow Reconstruction in Minimum-Bias and Jet
+Events from pp Collisions at 7 TeV CMS-PAS-PFT-10-002
 \bibitem{codp}
-CERN Open Data Portal. 2018, http://opendata.cern.ch. Accessed 2 Aug 2018.
+CERN Open Data Portal. 2018, http://opendata.cern.ch. 
 \bibitem{cap}
-CERN Analysis Preservation Portal. 2018, https://analysispreservation.cern.ch. Accessed 5 Aug 2018.
+CERN Analysis Preservation Portal. 2018, https://analysispreservation.cern.ch. 
 \bibitem{reana}
-ReANA: Reusable Analyses. 2018, http://www.reana.io/. Accessed 30 Jul 2018.
+ReANA: Reusable Analyses. 2018, http://www.reana.io/.
 \bibitem{higgs}
-Jomhari, Nur Zulaiha; Geiser, Achim; Bin Anuar, Afiq Aizuddin. 2017,``Higgs-to-four-lepton analysis example using 2011-2012 data". CERN Open Data Portal. DOI:10.7483/OPENDATA.CMS.JKB8.RR42. Accessed 30 Jul 2018.
+Jomhari, Nur Zulaiha; Geiser, Achim; Bin Anuar, Afiq Aizuddin. 2017,``Higgs-to-four-lepton analysis example using 2011-2012 data". CERN Open Data Portal. DOI:10.7483/OPENDATA.CMS.JKB8.RR42.
+\bibitem{higgsinfo}
+Glashow S L 1961 Partial Symmetries of Weak Interactions Nucl. Phys.
+\bibitem{higgsinfo2}
+Weinberg S 1967 A Model of Leptons Phys. Rev. Lett.
+\bibitem{higgsinfo3}
+Salam A 1968 Elementary Particle Physics N. Svartholm ed., Almquvist and Wiksell, Stockholm
 \bibitem{lxplus}
-CERN IT Department. LXPLUS Service. 2013, http://information-technology.web.cern.ch/services/lxplus-service. Accessed 18 Sep 2018.
+CERN IT Department. LXPLUS Service. 2013, http://information-technology.web.cern.ch/services/lxplus-service
 \bibitem{codpvm}
-CMS Collaboration. ``CMS VM Image, for 2011 and 2012 CMS open data". 2014, http://opendata.cern.ch/record/252. Accessed 25 Sep 2018.
+CMS Collaboration. ``CMS VM Image, for 2011 and 2012 CMS open data". 2014, http://opendata.cern.ch/record/252. 
 \bibitem{yaml}
-YAML Ain't Markup Language. 2018, http://yaml.org. Accessed 18 Sep 2018.
+YAML Ain't Markup Language. 2018, http://yaml.org
 \bibitem{github}
-``reanahub/reana-demo-cms-h4l". Github, 2018, https://github.com/reanahub/reana-demo-cms-h4l. Accessed 3 Aug 2018.
+``reanahub/reana-demo-cms-h4l". Github, 2018, https://github.com/reanahub/reana-demo-cms-h4l. 
 \bibitem{cwl}
-Common Workflow Language. 2018, https://www.commonwl.org/. Accessed 21 Aug 2018.
+Common Workflow Language. 2018, https://www.commonwl.org/. 
 \end{small}
 \end{thebibliography}
 \end{document}
